@@ -81,3 +81,77 @@ for (let i = 0; i < 5; i++){
   rows.push(row);
 }
 console.log(drawTable(rows));
+
+var mountains = [
+  {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
+  {name: "Everest", height: 8848, country: "Nepal"},
+  {name: "Mount Fuji", height: 3776, country: "Japan"},
+  {name: "Mont Blanc", height: 4808, country: "Italy/France"},
+  {name: "Vaalserberg", height: 323, country: "Netherlands"},
+  {name: "Denali", height: 6168, country: "United States"},
+  {name: "Popocatepetl", height: 5465, country: "Mexico"}
+];
+
+function UnderlinedCell(inner){
+  this.inner = inner;
+};
+UnderlinedCell.prototype.minWidth = function(){
+  return this.inner.minWidth();
+};
+UnderlinedCell.prototype.minHeight = function(){
+  return this.inner.minHeight() + 1;
+};
+UnderlinedCell.prototype.draw = function(width, height){
+  return this.inner.draw(width, height -1)
+    .concat([repeat("-", width)]);
+};
+
+function dataTable(data){
+  let keys = Object.keys(data[0]);
+  let headers = keys.map(function(name){
+    return new UnderlinedCell(new TextCell(name));
+  });
+
+  let body = data.map(function(row){
+    return keys.map(function(name){
+      return new TextCell(String(row[name]));
+    });
+  });
+  return [headers].concat(body);
+}
+
+console.log(drawTable(dataTable(mountains)));
+
+//Getters and Setters
+let pile = {
+  elements: ["eggshell", "orange peel", "worm"],
+  get height(){
+    return this.elements.length;
+  },
+  set height(value){
+    console.log("Ignoring attempt to set height to", value);
+  }
+};
+console.log(pile.height);
+pile.height = 100
+
+Object.defineProperty(TextCell.prototype, "heightProp", {get: function(){return this.text.length}
+});
+let cell = new TextCell("no\nway");
+console.log(cell.heightProp);
+cell.heightProp = 100;
+console.log(`without a setter the command to set to 100 is ignored: ${cell.heightProp}`);
+
+//Inheritance
+function RTextCell(text){
+  TextCell.call(this, text);
+}
+RTextCell.prototype = Object.create(TextCell.prototype);
+RTextCell.prototype.draw = function(width, height){
+  let result = [];
+  for(let i = 0; i < height; i++){
+    let line = this.text[i] || "";
+    result.push(repeat(" ", width - line.length) + line);
+  }
+  return result;
+}
