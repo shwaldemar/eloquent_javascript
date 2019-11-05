@@ -94,3 +94,11 @@ delete Object.prototype.nonsense;
 
 for (var name in map)
 console.log("this is ", name);
+
+console.log(map.hasOwnProperty("toString"));
+
+for(let name in map) {
+  if(map.hasOwnProperty(name)){
+    console.log(name, "This is own property");
+  }
+}
