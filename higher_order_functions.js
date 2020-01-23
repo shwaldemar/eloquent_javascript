@@ -118,5 +118,5 @@ var string = JSON.stringify({name: "Simon Hall", born: 1972})
 console.log(string);
 console.log(JSON.parse(string).born);
 
-var ancestry = JSON.parse(ANCESTRY_FILE);
-console.log(ancestry.length);
+// var ancestry = JSON.parse(ancestry_object);
+// console.log(ancestry.length);

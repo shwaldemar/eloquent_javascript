@@ -28,6 +28,38 @@ let day1 = {
 
 console.log(day1.events[1]);
 
+for(event of day1.events) {
+  console.log(`SIMON this one: ${(event) === "touched tree"}`)
+}
+
+console.log(day1.events.filter(event => {
+    return event.length > 5
+}));
+
+day1.events.forEach(event => {
+   console.log(event + " That worked")
+})
+
+let mapped = day1.events.map(event => {
+  return event + "sorted"
+})
+  console.log(`This is mapped each element has text added ${mapped}`);
+
+  let place = day1.events.indexOf("touched tree")
+  console.log(`touched tree's index in events is ${place}`)
+  console.log(`Proof of index: ${day1.events[1]}`);
+
+let total = listOfNumbers.reduce((accum, number)=>{
+  return accum + number
+},0)
+console.log(`This is the total: ${total}`);
+
+let anotherMap = listOfNumbers.map(number => { return number * 10})
+console.log(`numbers * 10: ${anotherMap}`);
+console.log(`the index of 20 is ${anotherMap.includes(20)} and it is at position ${anotherMap.indexOf(20)} in the array`);
+
+console.log(correlations);
+
 for(let i=0; i < day1.events.length; i++){
   if (day1.events[i] === "work") {
     console.log("Woo Hoo it worked!")

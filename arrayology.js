@@ -10,6 +10,7 @@ function urgentlyRememberTo(task) {
 }
 
 rememberTo("eat")
+rememberTo("break dance")
 console.log(whatIsNext());
 urgentlyRememberTo("eat")
 console.log(toDoList);
@@ -30,15 +31,34 @@ function remove(array, index){
   return array.slice(0, index)
     .concat(array.slice(index + 1))
 }
-console.log(remove(["a", "b", "c", "d", "e"], 2))
+let letters = ["a", "b", "c", "d", "e"]
+console.log(remove(letters, 2))
 
 var myString = "Fido";
 myString.myProperty = "value";
-console.log(myString.myProperty);
+console.log(`${myString.myProperty} :results in undefined`);
 
 console.log("coconuts".slice(4,7));
 console.log("coconut".indexOf("u"));
-console.log("one two three".indexOf("ree"))
+console.log(`index of ree in one two three: ${"one two three".indexOf("ree")}`)
+
+let thinggy = "one two three"
+
+let changed = thinggy.split('')
+changed.splice(0,3)
+console.log(changed);
+finished = changed.join("")
+console.log(finished);
+let nospaces = changed.filter(thing => {
+  return thing !== ' '
+})
+console.log(nospaces);
+let noTs = nospaces.filter(thing => {
+  return thing !== 't'
+})
+console.log(noTs);
+let completed = noTs.join('')
+console.log(completed);
 
 console.log("    okay\n ".trim())
 console.log("    okay\n")
@@ -47,8 +67,21 @@ var string = "abc"
 console.log(string.charAt(1) + ", " + string);
 console.log(string[1]);
 
-function noArguments(){}
-  noArguments(1,2,3);
+function noArguments(a,b,c) {
+  let numargs = arguments.length
+}
+  console.log(noArguments(1,2));
+
+let stuff = ["thing", true, noArguments, 10]
+  let type_s = stuff.forEach(thing => {
+      let desc = typeof(thing);
+      let place = stuff.indexOf(thing)
+      console.log(`${thing} ${desc} ${place}`)
+  })
+
+  console.log(type_s);
+
+
 
 function threeArguments(a,b,c){
   return "Simon"
