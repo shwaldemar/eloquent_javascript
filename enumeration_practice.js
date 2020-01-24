@@ -1,7 +1,25 @@
-//to practice... nesting & chaining enumerators .forEach .map .filter .reduce ...
-//to practice iterating over object of objects, changing records, sorting object of objects,
-//to practice breaking an object of objects in to an array of objects
-//joining 3 arrays in to an object of objects + creating additional key value pair for all records multiplying sales * prices.
+//combined 3 arrays (products, prices and sales) in to an object/hash of objects/hashes.
+//added functions to view, add, edit and delete specific records.
+
+//created an array of guitar objects/hashes.
+//added function to sort the object by any specified key.
+//added functions to add, edit & delete records.
+//added functions to caluculate cost of stock, set retail price and update revenues.
+
+//function to capitalise 1st letters of words in string
+//function to filter an array and return the even nos
+//function to replace an item in an array
+//function to total an array of ints
+//function to turn an array of ints to an array of strings
+//function to turn an array of strings to ints
+//function to reverse the order of an array permanently
+//function to reverse the order of an array temporarily using slice
+//function to count the number of a specific character in a scentence
+
+
+
+//combined 3 arrays (products, prices and sales) in to an object/hash of objects/hashes.
+//added functions to view, add, edit and delete specific records.
 products = ["peanuts", "chips", "pasty", "burger"]
 prices = [1.50,2.99,3.40,4.99]
 sales = [10, 5, 6, 7]
@@ -12,47 +30,71 @@ function joinArraysInToObject(arr1, arr2, arr3){
   }
   return result
 }
-
 prods_prices_sales = joinArraysInToObject(products, prices, sales)
 objectLength = Object.keys(prods_prices_sales).length
-console.log(prods_prices_sales)
-for (var [key, value] of Object.entries(prods_prices_sales)){
-  if (value === "peanuts"){
-    for (var [key, value] of Object.entries("peanuts")){
-      console.log(key, value)
+
+function edit_product(stock_item, element, change){
+  for (var [key, value] of Object.entries(prods_prices_sales)) {
+    let p = prods_prices_sales[key]
+
+    if (p['product'] === stock_item) {
+      p[element] = change
     }
   }
 }
+edit_product("peanuts", "price", "0.23")
+edit_product("chips", "sales", 25)
 
-// const isBelowThreshold = (currentValue) => currentValue < 40;
-const array1 = [1, 30, 39, 29, 10, 13];
-// console.log("using every", array1.every(isBelowThreshold));
+function prices_strings_to_ints(){
+  for (var [key, value] of Object.entries(prods_prices_sales)){
+    p = prods_prices_sales[key]
+    p["price"] = parseFloat(p["price"]).toFixed(2)
+  }
+}
+prices_strings_to_ints()
 
-// const fairEachlike = array1.forEach(n => {
-//   console.log(n)
-// })
-// console.log(fairEachlike)
-const mapped = array1.map(n => {
-  if (n === 30){
-    return n}
-  })
-// console.log(mapped)
-const filtered = array1.filter(n => {
-  return n === 30
-})
-// console.log(filtered)
-const reduced = array1.reduce((acc, cur) =>{
-  return acc+cur
-})
-// console.log(reduced)
-const index = array1.findIndex(n => {
-  return n === 30
-})
-// console.log(index)
+function update_revenue(){
+  for (var [key, value] of Object.entries(prods_prices_sales)) {
+    p = prods_prices_sales[key]
+    //console.log(typeof parseInt(p["price"]), typeof p["sales"])
+    p['revenue'] = p['price'] * p['sales']
+    p['revenue'] = p['revenue'].toFixed(2)
+  }
+}
+update_revenue()
 
-const placeof = array1.indexOf(30)
-// console.log(placeof)
+function add_stock_item(product, price, sales, revenue){
+  let ps = prods_prices_sales
+  ps[product] = {"product": product, "price": price, "sales": sales, "revenue": revenue}
+}
+add_stock_item("mung beans", 45, 10, 450)
+add_stock_item("ketsup", 2, 2, 4)
+edit_product("mung beans", "price", 0.15)
+prices_strings_to_ints()
+update_revenue()
 
+function delete_rec(item){
+  for (var [key, value] of Object.entries(prods_prices_sales)){
+    if (key === item){
+      delete prods_prices_sales[key]
+    }
+  }
+}
+delete_rec("burger")
+
+function view_item(item){
+  for (var [key, value] of Object.entries(prods_prices_sales)) {
+    if (key === item) {
+      console.log(value)
+    }
+  }
+}
+view_item("pasty")
+
+//created an array of guitar objects/hashes.
+//added functions to add,edit & delete records.
+//added functions to caluculate and update revenues from (sales * prices-costs).
+//added function to sort the object.
 guitars = [{"make": "fender", "model": "telecaster", "frets": 21}, {"make": "gibson", "model": "acoustic", "frets": 21}]
 
 add_guitar_to_guitars_array("ibanez", "super strat", 28)
@@ -67,7 +109,6 @@ set_retail_price(1.4)
 calculate_profit_on_all_stock()
 
 // console.log(guitars.sort(compareValues('stock_count', 'desc')))
-
 //compareValues is passed to sort inorder to "guitars" the array of objects guitars.sort(compareValues('stock_count', 'desc'))
 function compareValues(key, order='asc'){
   return function innerSort(a, b){
@@ -206,6 +247,16 @@ function total(arr) {
     return result
 }
 // console.log(total(str_2_int(numbers)))
+
+//capitalise 1st letters of words in string
+//filter an array and return the even nos
+//replace an item in an array
+//total an array of ints
+//turn an array of ints to an array of strings
+//turn an array of strings to ints
+//reverse the order of an array permanently
+//reverse the order of an array temporarily using slice
+//count all the characters in a scentence matching input
 
 function str_2_int(arr){
     result = arr.map(element => {
